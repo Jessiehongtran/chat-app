@@ -16,7 +16,7 @@ const Chat = ({location}) => {
     const [users, setUsers] = useState([])
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const ENDPOINT = 'localhost:5001';
+    const ENDPOINT = 'https://amateurs-chat.herokuapp.com/';
 
     useEffect(() => {
         const { name, room } = queryString.parse(location.search)
@@ -38,16 +38,13 @@ const Chat = ({location}) => {
     }, [ENDPOINT, location.search])
 
     useEffect(() => {
-        socket.on('message', (message) => {
-            setMessages([...messages, message])
+        socket.on('message', message => {
+            setMessages(messages => [...messages, message])
         })
-    }, [messages])
-
-    useEffect(() => {
-        socket.on('roomData', ({room, users}) => {
-           setUsers(users)
-        })
-    }, [messages])
+        socket.on('roomData', ({users}) => {
+            setUsers(users)
+         })
+    }, [])
 
     // function for sending messages
     const sendMessage = e => {
@@ -58,7 +55,7 @@ const Chat = ({location}) => {
         }
     }
 
-    console.log(message, messages)
+    console.log('checkk', message, messages)
 
     return (
         <div className="outerContainer">
