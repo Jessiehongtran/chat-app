@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 import './Join.css';
 
-const Join = () => {
+const Join = (props) => {
     const [name, setName] = useState('');
-    const [room, setRoom] = useState('');
+    const [room, setRoom] = useState(props.match.params.roomName);
 
     return (
         <div className="joinOuterContainer">
@@ -24,6 +24,7 @@ const Join = () => {
                         placeholder="Room"
                         className="joinInput mt-20"
                         type="text"
+                        value={room}
                         onChange={e => setRoom(e.target.value)}
                     />
                 </div>
